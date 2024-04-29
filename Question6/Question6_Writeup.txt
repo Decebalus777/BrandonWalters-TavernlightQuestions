@@ -1,0 +1,23 @@
+Unfortunately I wasn't able to implement Question 6 due to Question 7 taking so long, which was due to having to search through scattered documentation/function calls 
+in the codebase, but I would still like to take the time to describe how I was planning to approach this problem from a theoretical perspective.
+
+My idea centered on changes in four key places: the first is data/events/scripts/player.lua, where I was planning to modify the existing useStamina() function to help
+keep track of the player's available Dash uses at any given time, since Dashing too many times in a short timespan leads to the character becoming tired and unable to 
+Dash further. In a similar manner to how stamina is tracked in this method based on ticks, I was planning to implement a similar strategy to keep track of the player's 
+available dashes.
+
+The second place was Creature::onCreatureMove() and Creature::getStepDuration() in src/creature.cpp. By tracking when the player has a Dash active, similar to the
+tracking for teleports, I planned to modify the step duration accordingly so the player would essentially "super-speed" for a short period of time, 
+thereby recreating the dash effect. This would also allow us to utilize the server's preexisting pathfinding and obstacle blocking code, 
+which covers a lot of potential edge cases with this kind of extremely rapid movement.
+
+A small addition would have to be made in src/tools.cpp, to add the "You can't dash any further." message when the player is out of Dashes.
+
+Finally, to replicate the shaders shown, I believe that the best place for this would be in the data/movements section of Lua scripts, where we could create a new script
+to replicate the effect of having several of the player sprites trailing the player as they moved, with slight discoloration. This placement should let us leverage both
+the existing infrastructure to render the player sprite behind the actual player, but also to essentially turn that sprite into an "effect" of sorts, similar to a regular
+spell effect. This would require a hook of some way from the server to notify the script once the player presses the Dash button, so that we know when to display these 
+shaders.
+
+I apologize again for not being able to properly attempt this problem, but I hope this writeup demonstrates the depth of thought I have put into the problem and the solution
+I have considered. Thank you for reading and for the opportunity to work with your great team at Tavernlight!
