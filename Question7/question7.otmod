@@ -1,0 +1,9 @@
+Module
+  name: game_question7
+  description: Menu with moving button
+  author: Brandon Walters
+  website: https://github.com/edubart/otclient and https://github.com/Decebalus777/BrandonWalters-TavernlightQuestions
+  sandboxed: true
+  scripts: [ question7 ]
+  @onLoad: init()
+  @onUnload: terminate()

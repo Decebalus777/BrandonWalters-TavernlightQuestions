@@ -1,0 +1,13 @@
+MovingButton < Button
+  id: movingButton
+  width: 45
+  !text: tr('Jump!')
+
+MainWindow
+  id: menuWindow
+  !text: tr('Moving Button Menu')
+  size: 480 340
+
+  MovingButton
+    anchors.right: parent.right
+    @onClick: modules.game_question7.buttonPressMove()
